@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mask Test</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 col-lg-4 col-xl-3">
+            <form action="" class="validate-me">
+                <div class="form-group">
+                    <label for="phone-test">Phone number</label>
+                    <input class="form-control phone-field" type="text" id="phone-test" name="phone_test" required>
+                </div>
+                <button class="show-result btn btn-primary">See the result</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="node_modules/jquery/dist/jquery.slim.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+
+<script>
+    var $field = $('.phone-field');
+    var defaultMask = 'X00 00 000 0000';
+    var options = {
+        translation: {
+            'X': {
+                pattern: /\+/, optional: true
+            }
+        },
+        onKeyPress: function (cep, e, field, options) {
+            if (/^\+*[0-9]{2} 1/g.test(cep)) {
+                $field.mask('X00 0 000 000', options);
+            } else {
+                $field.mask(defaultMask, options);
+            }
+        }
+    };
+
+    $field.mask(defaultMask, options);
+</script>
+</body>
+</html>
