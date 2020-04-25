@@ -10,15 +10,20 @@
 <div class="container">
     <div class="row justify-content-center mt-5">
         <div class="col-md-7 col-lg-5 col-xl-4">
-            <form action="" class="validate-me">
+            <h2>Magyar telefonszám maszkolás</h2>
+            <p>Mobil és vezetékes telefonszámokra, beleértve a budapesti 1-es körzetszámot.</p>
+            <form action="">
                 <div class="form-group">
                     <label for="phone-test">Phone number</label>
                     <input class="form-control phone-field" type="text" id="phone-test" name="phone_test" required>
+                    <div class="invalid-feedback">Kérjük adjon meg magyarországi mobil vagy vezetékes telefonszámot!
+                    </div>
                 </div>
-                <button class="get-result btn btn-primary w-100">See value</button>
+                <button class="get-result btn btn-primary w-100">Nézzük</button>
             </form>
             <br><br>
             <h3 class="result text-center"></h3>
+            <br><br>
         </div>
     </div>
 </div>
@@ -54,7 +59,16 @@
 
     $('.get-result').off('click.getresult').on('click.getresult', function (e) {
         e.preventDefault();
-        $result.html($field.cleanVal());
+        var cleanVal = $field.cleanVal();
+        $result.html(cleanVal);
+        $field.removeClass('is-valid');
+        $field.removeClass('is-invalid');
+
+        if (/(?:^\+36|^06)/g.test(cleanVal)) {
+            $field.addClass('is-valid');
+        } else {
+            $field.addClass('is-invalid');
+        }
     });
 </script>
 </body>
